@@ -79,15 +79,17 @@ try {
 )();
 
 (function() {
-    
+    // Basically: never use var. let and const are the future. 
     if (true) {
-        var varVar = 1;
+        var varVar = 1; //Function scope. 
         let letVar = 1;
+        const constVar = 1;
     }
     
     console.assert(varVar == 1);
     
     console.assert('undefined' === typeof letVar);
+    console.assert('undefined' === typeof constVar);
     
     expectError(() => {
         console.assert(letVar == 1);
