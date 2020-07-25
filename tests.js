@@ -44,7 +44,7 @@ function expectError(shouldThrow, errorText) {
     } finally {
         if (errorText) {
             // We're asserting we've got the correct error. 
-            if (!tryResult.startsWith(errorText)) {		
+            if (!tryResult.startsWith(errorText)) {        
                 console.error(tryResult + " doesn't start with " + errorText); 
                 // outcome 2
             } // else is outcome 1
@@ -55,6 +55,8 @@ function expectError(shouldThrow, errorText) {
         }
     }
 }
+
+// -------------------- START OF ACTUAL STUFF -------------------------------//
 
 expectError(() => {
     throw new Error("Toys out of the pram?");
@@ -76,9 +78,25 @@ try {
 }
 )();
 
+(function() {
+    
+    if (true) {
+        var varVar = 1;
+        let letVar = 1;
+    }
+    
+    console.assert(varVar == 1);
+    
+    console.assert('undefined' === typeof letVar);
+    
+    expectError(() => {
+        console.assert(letVar == 1);
+    }, "letVar is not defined");
+})();
+
 expectError(() => {
-    console.log(varWithoutVar);
-}, "varWithoutVar is not defined");
+    console.log(undeclaredVar);
+}, "undeclaredVar is not defined");
 
 
 
@@ -118,7 +136,7 @@ expectError(() => {
     //two 16 bit er, things. 
 
     const orangutan = "🦧"; //Orangutan, new for 2019, does NOT render in Notepad++ or Chrome as of December 2019.
-    // /əˈɹæŋ.ə.tæn/	
+    // /əˈɹæŋ.ə.tæn/    
     
     console.assert(orangutan.codePointAt(0) == 129447);
     console.assert(orangutan.codePointAt(0).toString(16) == "1f9a7"); // Unicode is usually written U+1F9A7
@@ -215,7 +233,7 @@ expectError(() => {
         console.assert(toHexString(new Uint8Array(digest)) == "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3");
     }
     
-    
+    // --- For reference
     // bph@localhost:~# echo -n 'test' | sha1sum
     // returns a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
 }
@@ -232,7 +250,7 @@ expectError(() => {
     console.assert(object1.hasOwnProperty('toString') == false);
     console.assert(object1.hasOwnProperty('hasOwnProperty') == false);
 
-}	
+}    
 )();
 
 (function() {
@@ -258,4 +276,21 @@ expectError(() => {
         }
     };
     myObject.func();
+})();
+
+
+(function() {
+    // It's definitely worth remembering that maths is wrong in JS. 
+
+    console.assert(0.1 + 0.2 == 0.1 + 0.1 + 0.1);
+    console.assert(0.1 + 0.2 != 3 / 10);
+    
+    console.assert(isNaN(parseInt('hello', 10)));
+    
+    
+    // https://stackoverflow.com/a/23666623
+    console.assert(Number.NaN != Number.NaN); // This is intentional. 
+    console.assert(isNaN(parseInt('hello', 10)));
+    console.assert(parseInt('hello', 10) != Number.NaN); //Not because of JS though. This is the IEEE. 
+    console.assert(!isFinite(1 / 0), "Divide by zero"); //Surely the IEEE wouldn't condone this? (Too lazy; didn't Google).
 })();
