@@ -73,13 +73,44 @@ try {
 
 
 (function() {
+    console.assert(true || commitSeppuku()) //Seppuku bad. Don't do Seppuku. 
+    console.assert(!(false && commitSeppuku()));
+    
+    console.assert(! ("test" == "test" == "test")); // This is here since it tripped me up! 
+    console.assert("test" == "test" != "test");
+})();
+
+(function() {
+    // LOOPS! - Gone through this several times now!
+    const array = [1,2,3];
+    let resultArray = [];
+    for (let value of array) {
+        resultArray.push(value);
+    }
+    
+    console.assert('1,2,3' == array.toString(), 'First Array Comparison failing');
+    console.assert('1,2,3' == resultArray.toString(), "Array comparison failing"); //No [] in the toString. 
+
+    const object = { //Variable name from MDN in their trivial example. 
+        a: 1, b: 2, c: 3
+    };
+    let resultObject = {};
+    for (let property in object) {
+        resultObject[property] = object[property];
+    }
+    
+    console.assert(JSON.stringify(object) == JSON.stringify(resultObject));
+
+})();
+
+(function() {
     var aVar;
     console.assert(aVar === undefined, FAIL_MSG);
 }
 )();
 
 (function() {
-    // Basically: never use var. let and const are the future. 
+    // Basically; never use var. let and const are the future. 
     if (true) {
         var varVar = 1; //Function scope. 
         let letVar = 1;
@@ -284,6 +315,7 @@ expectError(() => {
 (function() {
     // It's definitely worth remembering that maths is wrong in JS. 
 
+    console.assert(0.1 + 0.2 != parseInt('0.3'));
     console.assert(0.1 + 0.2 == 0.1 + 0.1 + 0.1);
     console.assert(0.1 + 0.2 != 3 / 10);
     
