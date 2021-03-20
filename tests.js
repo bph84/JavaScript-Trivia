@@ -30,7 +30,7 @@ function expectError(shouldThrow, errorText) {
     // Slightly head bending, so... Four possible outcomes:
     // 1 We get an error which matches the given error text. All good ✓.
     // 2 We get an error which does not match the given error text. Not good ⚠. 
-    // 3 We get an error but don't have errorText. OK, but not ideal 🕑.  
+    // 3 We get an error and this function wasn't given errorText. Acceptable but possibly lazy 🕑.  
     // 4 We don't get an error. Definitely not good ⚠⚠. 
     
     let tryResult;
@@ -313,7 +313,7 @@ expectError(() => {
 
 
 (function() {
-    // It's definitely worth remembering that maths is wrong in JS. 
+    // It's definitely worth remembering that maths is weird in a lot of languages. 
 
     console.assert(0.1 + 0.2 != parseInt('0.3'));
     console.assert(0.1 + 0.2 == 0.1 + 0.1 + 0.1);
