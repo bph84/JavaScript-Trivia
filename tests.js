@@ -168,7 +168,7 @@ expectError(() => {
     console.assert(hmmmm.length == 2);
     //two 16 bit er, things. 
 
-    const orangutan = "🦧"; //Orangutan, new for 2019, does NOT render in Notepad++ or Chrome as of December 2019.
+    const orangutan = "🦧"; //Orangutan, new for 2019. Renders in Notepad++ in March 2021, but didn't in December 2019.
     // /əˈɹæŋ.ə.tæn/    
     
     console.assert(orangutan.codePointAt(0) == 129447);
