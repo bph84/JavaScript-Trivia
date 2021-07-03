@@ -24,7 +24,13 @@ function assertEqual(actual, expected, errorMessage) {
 }
 
 function describeArgs() {
-	
+	/* This deals with the arguments object, which is a very old JS feature.
+	   remember that describeArgs(...args) is possible in modern JS. 
+	   
+	   arguments is not actually an array. To make it an array:
+	   > const args = Array.from(arguments);
+	   */
+	   
 	let rtn = [];
 	
 	for (let value of arguments) {
